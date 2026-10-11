@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Catur Rogue</title>
+<script>
+var lost=[];
+function miss(e){lost.push(e.getAttribute('src')||e.getAttribute('href'));}
+addEventListener('error',function(e){if(e.message)document.body.insertAdjacentHTML('afterbegin','<p style="color:#f66;padding:8px">Error: '+e.message+' ('+String(e.filename).split('/').pop()+':'+e.lineno+')</p>');});
+addEventListener('load',function(){
+  var m='';
+  if(lost.length)m='File tidak termuat: '+lost.join(', ')+'. Jalankan lewat server: node server.js, lalu buka http://localhost:3000';
+  else if(typeof App==='undefined')m='File css dan js tidak bisa dimuat oleh aplikasi ini. Jalankan lewat server: node server.js, lalu buka http://localhost:3000';
+  if(m)document.body.insertAdjacentHTML('afterbegin','<p style="color:#f66;padding:8px;position:relative;z-index:99">'+m+'</p>');
+});
+</script>
+<link rel="stylesheet" href="css/style.css" onerror="miss(this)">
+</head>
+<body>
+<section id="loading" class="screen show">
+<img class="logo" src="assets/ui/logo.svg" alt="">
+<h1>Catur Rogue</h1>
+<div class="bar"><i id="barFill"></i></div>
+<p id="tip"></p>
+</section>
+
+<section id="title" class="screen">
+<img class="logo" src="assets/ui/logo.svg" alt="">
+<h1>Catur Rogue</h1>
+<p>Beta</p>
+<button id="btnSolo">Main solo</button>
+<button id="btnCoop">Main coop (hotspot)</button>
+<button id="btnHow">Cara bermain</button>
+</section>
+
+<section id="lobby" class="screen">
+<h2>Coop</h2>
+<div id="joinBox">
+<label>Kode ruangan <input id="room" maxlength="12" size="10" autocapitalize="none"></label>
+<button id="btnJoin">Gabung</button>
+</div>
+<ul id="players"></ul>
+<p id="lobbyNote"></p>
+<button id="btnStart" hidden>Mulai run</button>
+<button id="btnBack">Kembali</button>
+</section>
+
+<section id="game" class="screen">
+<div id="hud">
+<button id="btnMenu">Menu</button>
+<span id="hudRound"></span>
+<span id="hudLives"></span>
+<span id="hudCoins"></span>
+</div>
+<div id="board"><div id="squares"></div><div id="pieces"></div></div>
+<p id="status"></p>
+<div id="skills"></div>
+<div id="relics"></div>
+</section>
+
+<div id="modal" hidden><div class="sheet" id="sheet"></div></div>
+<div id="banner"></div>
+<div id="toasts"></div>
+
+<script src="js/engine/constants.js" defer onerror="miss(this)"></script>
+<script src="js/engine/board.js" defer onerror="miss(this)"></script>
+<script src="js/engine/moves.js" defer onerror="miss(this)"></script>
+<script src="js/engine/eval.js" defer onerror="miss(this)"></script>
+<script src="js/engine/ai.js" defer onerror="miss(this)"></script>
+<script src="js/engine/game.js" defer onerror="miss(this)"></script>
+<script src="js/rogue/data.js" defer onerror="miss(this)"></script>
+<script src="js/rogue/run.js" defer onerror="miss(this)"></script>
+<script src="js/ui/assets.js" defer onerror="miss(this)"></script>
+<script src="js/ui/board.js" defer onerror="miss(this)"></script>
+<script src="js/ui/screens.js" defer onerror="miss(this)"></script>
+<script src="js/ui/host.js" defer onerror="miss(this)"></script>
+<script src="js/ui/net.js" defer onerror="miss(this)"></script>
+<script src="js/ui/app.js" defer onerror="miss(this)"></script>
+<script src="js/main.js" defer onerror="miss(this)"></script>
+</body>
+</html>
